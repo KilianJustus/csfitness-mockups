@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact | CS FITNESS — Visit Us in Henderson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .contact-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
+  .info-card { background: var(--navy-900); border-radius: var(--r-card); padding: 32px 30px; }
+  .info-card h4 { color: #fff; }
+  .info-row { display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--navy-700); }
+  .info-row:last-child { border-bottom: 0; }
+  .info-row .t { font: 700 12px/1.4 var(--f-text); letter-spacing: .1em; text-transform: uppercase; color: var(--sky-300); }
+  .info-row p { color: var(--on-dark); font-size: .95rem; }
+  .map-block { height: 380px; margin-top: clamp(2.5rem, 5vw, 4rem); }
+  @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="home.html"><img src="img/logo-white.png" alt="CS FITNESS"></a>
+    <ul class="nav-links">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="results.html">Results</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <a class="btn btn-primary nav-cta" href="book.html">Book Free Session</a>
+    <button class="nav-burger" aria-label="Menu" onclick="document.getElementById('nav').classList.toggle('open')"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="page-hero on-dark">
+  <div class="container">
+    <div class="eyebrow">Contact</div>
+    <h1>Visit us in <span class="grad-text">Henderson</span></h1>
+    <p class="sub">Questions about EMS, memberships or your first session? Send us a message or drop by — we're happy to help.</p>
+    <div class="impulse"></div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <div class="eyebrow">Send a message</div>
+        <h3 style="margin-bottom:26px">We reply within 24 hours</h3>
+        <form onsubmit="return false">
+          <div class="grid grid-2" style="gap:0 18px;align-items:start">
+            <div class="field"><label for="name">Name</label><input id="name" type="text" placeholder="Your name"></div>
+            <div class="field"><label for="email">Email</label><input id="email" type="email" placeholder="you@example.com"></div>
+          </div>
+          <div class="field"><label for="phone">Phone (optional)</label><input id="phone" type="tel" placeholder="+1 (702) …"></div>
+          <div class="field"><label for="msg">Message</label><textarea id="msg" rows="5" placeholder="How can we help?"></textarea></div>
+          <button class="btn btn-primary" type="submit">Send Message</button>
+          <p class="muted" style="font-size:12px;margin-top:12px">Mockup — Formular ohne Funktion. Für den Build: Form-Backend oder Mail-Service anbinden.</p>
+        </form>
+      </div>
+      <aside class="info-card on-dark">
+        <div class="eyebrow">Studio Info</div>
+        <h4 style="margin-bottom:8px">CS Fitness Henderson</h4>
+        <div class="info-row"><div><div class="t">Address</div><p>Address TBD<br>Henderson, NV (Las Vegas Area)</p></div></div>
+        <div class="info-row"><div><div class="t">Phone</div><p>+1 (702) XXX-XXXX — Platzhalter</p></div></div>
+        <div class="info-row"><div><div class="t">Email</div><p>hello@csfitnessusa.com — Platzhalter</p></div></div>
+        <div class="info-row"><div><div class="t">Hours</div><p>Mon – Sat · by appointment<br>Booking via Mindbody</p></div></div>
+        <div class="info-row"><div><div class="t">Social</div><p>@csfitnessusa — Platzhalter</p></div></div>
+        <a class="btn btn-primary" style="width:100%;margin-top:20px" href="book.html">Book Free Session</a>
+      </aside>
+    </div>
+    <div class="placeholder map-block">Google-Maps-Embed<br>(Studio-Standort Henderson — Adresse folgt)</div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="cols">
+      <div class="flogo">
+        <img src="img/logo-white.png" alt="CS FITNESS">
+        <p>Boutique EMS studio in Henderson, NV.<br>Maximum results. Minimum time.</p>
+      </div>
+      <div><h5>Visit Us</h5><p>Address TBD<br>Henderson, NV<br>(Las Vegas Area)</p></div>
+      <div><h5>Hours</h5><p>Mon – Sat · by appointment<br>Booking via Mindbody</p></div>
+      <div><h5>Pages</h5><ul>
+        <li><a href="how-it-works.html">How It Works</a></li>
+        <li><a href="results.html">Results</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="careers.html">Careers</a></li>
+        <li><a href="book.html">Book</a></li>
+      </ul></div>
+    </div>
+    <div class="legal"><span>© 2026 CS FITNESS · Henderson, NV</span><span>Privacy Policy · Terms · Imprint</span></div>
+  </div>
+</footer>
+
+</body>
+</html>

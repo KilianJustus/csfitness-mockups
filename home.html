@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home | CS FITNESS — EMS Studio Henderson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .hero { position: relative; overflow: hidden; background: var(--navy-900); }
+  .hero .bg { position: absolute; inset: 0; background: url('img/hero-clean.jpg') center/cover; }
+  .hero .shade { position: absolute; inset: 0; background:
+    linear-gradient(180deg, rgba(10,22,38,.45), rgba(10,22,38,.96)),
+    linear-gradient(90deg, rgba(7,14,26,.82), rgba(7,14,26,0) 65%); }
+  .hero .container { position: relative; padding-top: clamp(5rem, 10vw, 9rem); padding-bottom: 0; }
+  .hero h1 { color: #fff; font-size: clamp(2.6rem, 7vw, 5.2rem); }
+  .hero .lead { color: var(--on-dark); max-width: 560px; margin: 26px 0 32px; }
+  .hero-stats { border-top: 1px solid rgba(255,255,255,.14); margin-top: clamp(3rem, 6vw, 5rem); padding: 30px 0 44px; }
+  .review { display: flex; gap: 10px; align-items: center; margin-top: 26px; font: 500 14px/1 var(--f-text); color: rgba(255,255,255,.65); }
+  .review .stars { color: var(--sky-300); letter-spacing: 2px; }
+  .trust { padding: 28px 0; border-bottom: 1px solid var(--slate-100); }
+  .trust .row { display: flex; align-items: center; gap: clamp(20px, 4vw, 48px); flex-wrap: wrap; }
+  .trust .label { font: 600 12px/1 var(--f-text); letter-spacing: .14em; text-transform: uppercase; color: var(--slate-500); }
+  .trust .placeholder { height: 36px; width: 120px; padding: 8px; }
+  .benefit-item { display: flex; gap: 20px; align-items: flex-start; }
+  .benefit-item + .benefit-item { margin-top: 36px; }
+  .benefit-item p { font-size: .95rem; color: var(--slate-500); margin-top: 6px; }
+  .tcard img { height: 280px; width: 100%; object-fit: cover; }
+  .tcard blockquote { font-size: .9rem; color: var(--slate-500); font-style: italic; }
+  .banner { background: var(--g-impulse); padding: 40px 0; text-align: center; }
+  .banner .disp { color: #fff; font-size: clamp(1.3rem, 3vw, 2.1rem); }
+  .exp { position: relative; overflow: hidden; background: var(--g-steel); }
+  .exp-row { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+  .exp-card { display: flex; gap: 16px; align-items: center; background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12); border-radius: 14px; padding: 18px 22px; margin-top: 14px; }
+  .exp-card b { display: block; font-family: var(--f-disp); font-stretch: 110%; text-transform: uppercase; color: #fff; font-size: 1rem; }
+  .exp-card span { font-size: .9rem; color: rgba(255,255,255,.66); }
+  .exp-card .check { color: var(--sky-300); font-size: 20px; }
+  .exp .img-frame { height: 100%; min-height: 380px; }
+  @media (max-width: 860px) { .exp-row { grid-template-columns: 1fr; } .exp .img-frame { min-height: 260px; } }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="home.html"><img src="img/logo-white.png" alt="CS FITNESS"></a>
+    <ul class="nav-links">
+      <li><a href="home.html" class="active">Home</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="results.html">Results</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a class="btn btn-primary nav-cta" href="book.html">Book Free Session</a>
+    <button class="nav-burger" aria-label="Menu" onclick="document.getElementById('nav').classList.toggle('open')"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero on-dark" style="padding:0">
+  <div class="bg"></div>
+  <div class="shade"></div>
+  <div class="container">
+    <div class="eyebrow">EMS Studio · Henderson, Las Vegas</div>
+    <h1>Get fit in just<br><span class="grad-text">20 minutes</span> a week</h1>
+    <p class="lead">FDA-cleared EMS technology plus 1-on-1 personal coaching. Maximum results, minimum time — your first session is free.</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="book.html">Book Your Free Session</a>
+      <a class="btn btn-secondary" href="how-it-works.html">How It Works</a>
+    </div>
+    <div class="review"><span class="stars">★★★★★</span> 5.0 · Google Reviews · Henderson, NV</div>
+    <div class="hero-stats">
+      <div class="stat-strip">
+        <div class="stat"><div class="n">20 MIN</div><div class="l">per week</div></div>
+        <div class="stat"><div class="n">90 %</div><div class="l">muscle fibers activated</div></div>
+        <div class="stat"><div class="n">500 KCAL</div><div class="l">burned per session</div></div>
+        <div class="stat"><div class="n">48–72 H</div><div class="l">afterburn effect</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust">
+  <div class="container">
+    <div class="row">
+      <span class="label">As seen on</span>
+      <div class="placeholder">Media Logo</div>
+      <div class="placeholder">Media Logo</div>
+      <div class="placeholder">Media Logo</div>
+      <div class="placeholder">Media Logo</div>
+    </div>
+  </div>
+</div>
+
+<!-- BENEFITS -->
+<section>
+  <div class="container">
+    <div class="sec-head">
+      <div class="eyebrow">Why CS Fitness</div>
+      <h2>Fitness for every level</h2>
+    </div>
+    <div class="grid grid-2">
+      <div class="img-frame" style="height:520px"><img src="img/benefits-couple.jpg" alt="EMS training for every age"></div>
+      <div>
+        <div class="benefit-item">
+          <div class="icon-chip">⚡</div>
+          <div><h4>20 minutes, once a week</h4><p>One 20-minute EMS session equals up to 2.5 hours of conventional gym training. Perfect for busy schedules.</p></div>
+        </div>
+        <div class="benefit-item">
+          <div class="icon-chip">🛡</div>
+          <div><h4>Stronger, healthier, pain-free</h4><p>Low-impact and joint-friendly. Builds strength, improves posture and helps reduce low back pain.</p></div>
+        </div>
+        <div class="benefit-item">
+          <div class="icon-chip">🤝</div>
+          <div><h4>You show up, we handle the rest</h4><p>1-on-1 coaching, training outfit, pH-balanced water and fresh towels — all included in every session.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGY -->
+<section class="sec-dark">
+  <div class="container">
+    <div class="grid grid-2">
+      <div>
+        <div class="eyebrow">Cutting-edge technology</div>
+        <h2>Safe technology.<br>Real results.</h2>
+        <p style="margin:22px 0">Our FDA-cleared miha bodytec suit sends gentle electrical impulses to all major muscle groups at once — activating up to 90% of your muscle fibers while a certified coach guides every move.</p>
+        <div class="chip-row" style="margin-bottom:22px">
+          <span class="chip chip-success">✓ FDA-cleared EMS technology</span>
+        </div>
+        <div class="chip-row">
+          <span class="chip chip-dark">Pectorals</span><span class="chip chip-dark">Abdominals</span>
+          <span class="chip chip-dark">Arms</span><span class="chip chip-dark">Back</span>
+          <span class="chip chip-dark">Glutes</span><span class="chip chip-dark">Legs</span>
+          <span class="chip chip-dark">The Mind</span>
+        </div>
+      </div>
+      <div class="img-frame" style="height:540px"><img src="img/tech-machine.jpg" alt="miha bodytec EMS technology"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSFORMATIONS -->
+<section class="sec-soft">
+  <div class="container">
+    <div class="sec-head" style="display:flex;justify-content:space-between;align-items:flex-end;max-width:none;gap:24px;flex-wrap:wrap">
+      <div>
+        <div class="eyebrow">Member Transformations</div>
+        <h2>Life changing stories</h2>
+      </div>
+      <a class="btn-ghost" href="results.html">All transformations</a>
+    </div>
+    <div class="grid grid-4">
+      <div class="card tcard"><img src="img/ba-1.jpg" alt="Before and after Camille"><div class="card-body"><h4>Meet Camille</h4><blockquote>“Just 20 minutes a week changed how I feel every single day.”</blockquote></div></div>
+      <div class="card tcard"><img src="img/ba-2.jpg" alt="Before and after Darcy"><div class="card-body"><h4>Meet Darcy</h4><blockquote>“I'm stronger at 50 than I was at 35 — without living in a gym.”</blockquote></div></div>
+      <div class="card tcard"><img src="img/ba-3.jpg" alt="Before and after Mocha"><div class="card-body"><h4>Meet Mocha</h4><blockquote>“The afterburn is real. The results came faster than I expected.”</blockquote></div></div>
+      <div class="card tcard"><img src="img/ba-4.jpg" alt="Before and after Kellie"><div class="card-body"><h4>Meet Kellie</h4><blockquote>“My posture improved and my back pain is finally gone.”</blockquote></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section>
+  <div class="container">
+    <div class="sec-head">
+      <div class="eyebrow">Your Journey</div>
+      <h2>Become a member in 5 steps</h2>
+    </div>
+    <div class="grid grid-5">
+      <div class="step-card"><span class="num">01</span><h4>Free Trial</h4><p>Consultation, health check and your first guided EMS session.</p></div>
+      <div class="step-card"><span class="num">02</span><h4>InBody Scan</h4><p>A full body assessment sets the baseline for your goals.</p></div>
+      <div class="step-card"><span class="num">03</span><h4>Train 1-on-1</h4><p>20 minutes, coach-guided, intensity dialed in for you.</p></div>
+      <div class="step-card"><span class="num">04</span><h4>Stay Consistent</h4><p>One session per week — consistency beats volume.</p></div>
+      <div class="step-card"><span class="num">05</span><h4>Transform</h4><p>Re-scan every 4 weeks and watch your results add up.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLAIM BANNER -->
+<div class="banner"><div class="container"><div class="disp">20 minutes = 2.5 hours of traditional workouts</div></div></div>
+
+<!-- EXPERIENCE -->
+<section class="exp on-dark">
+  <div class="container">
+    <div class="exp-row">
+      <div>
+        <div class="eyebrow">Your experience is our #1 priority</div>
+        <h2 style="color:#fff">All-inclusive.<br>Every session.</h2>
+        <div style="margin-top:26px">
+          <div class="exp-card"><span class="check">✓</span><div><b>Premium pH-balanced water</b><span>Fresh with every single session.</span></div></div>
+          <div class="exp-card"><span class="check">✓</span><div><b>Personal TENCEL training outfit</b><span>Comfortable, hygienic, always ready for you.</span></div></div>
+          <div class="exp-card"><span class="check">✓</span><div><b>Fresh towels provided</b><span>Show up as you are — we take care of the rest.</span></div></div>
+        </div>
+      </div>
+      <div class="img-frame"><img src="img/suiting-up.jpg" alt="Suiting up at CS Fitness"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ TEASER -->
+<section>
+  <div class="container">
+    <div class="sec-head center">
+      <div class="eyebrow">Good to know</div>
+      <h2>Frequently asked questions</h2>
+    </div>
+    <div class="faq-list" style="max-width:860px;margin:0 auto">
+      <details open>
+        <summary>Is EMS training safe?</summary>
+        <div class="answer">Yes — EMS is low-impact, joint-friendly and always supervised by certified coaches. The technology is well-researched and FDA-cleared.</div>
+      </details>
+      <details><summary>How does EMS work?</summary><div class="answer">During a session you wear a vest, belt and straps with electrodes on all major muscle groups. Controlled impulses trigger muscle contractions — activating more muscle fibers than traditional workouts, in just 20 minutes.</div></details>
+      <details><summary>Will EMS help me lose weight?</summary><div class="answer">Absolutely. Each session burns up to 500 calories and triggers a 48–72 hour afterburn effect, so your body keeps burning fat long after you leave the studio.</div></details>
+    </div>
+    <div style="text-align:center;margin-top:32px"><a class="btn-ghost" href="faq.html">All questions &amp; answers</a></div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-final sec on-dark">
+  <div class="bg" style="background-image:url('img/cta-bg.jpg')"></div>
+  <div class="container">
+    <h2>Ready to change your life?</h2>
+    <p>Your first EMS session is free — including your personal InBody assessment.</p>
+    <a class="btn btn-primary" href="book.html">Book Your Free Session</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="cols">
+      <div class="flogo">
+        <img src="img/logo-white.png" alt="CS FITNESS">
+        <p>Boutique EMS studio in Henderson, NV.<br>Maximum results. Minimum time.</p>
+      </div>
+      <div><h5>Visit Us</h5><p>Address TBD<br>Henderson, NV<br>(Las Vegas Area)</p></div>
+      <div><h5>Hours</h5><p>Mon – Sat · by appointment<br>Booking via Mindbody</p></div>
+      <div><h5>Pages</h5><ul>
+        <li><a href="how-it-works.html">How It Works</a></li>
+        <li><a href="results.html">Results</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="careers.html">Careers</a></li>
+        <li><a href="book.html">Book</a></li>
+      </ul></div>
+    </div>
+    <div class="legal"><span>© 2026 CS FITNESS · Henderson, NV</span><span>Privacy Policy · Terms · Imprint</span></div>
+  </div>
+</footer>
+
+</body>
+</html>
