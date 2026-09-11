@@ -228,6 +228,75 @@ section, .sec { padding: clamp(4rem, 8vw, 7rem) 0; }
   text-align: center; padding: 20px;
 }
 
+/* ---------- v2: Feedback-Runde 1 (Chris, 09/2026) ---------- */
+[hidden] { display: none !important; }
+
+/* "up to" Mini-Label über Kalorien-Stat */
+.upto { display: block; font: 700 10px/1 var(--f-text); letter-spacing: .16em; text-transform: uppercase; color: var(--slate-500); margin-bottom: 5px; }
+.sec-dark .upto, .on-dark .upto { color: var(--sky-300); }
+
+/* Animierte Muskelgruppen-Chips (Technology) */
+.zone-chips .chip { animation: chipPulse 8.4s ease-in-out infinite; }
+.zone-chips .chip:nth-child(1) { animation-delay: 0s; }
+.zone-chips .chip:nth-child(2) { animation-delay: 1.2s; }
+.zone-chips .chip:nth-child(3) { animation-delay: 2.4s; }
+.zone-chips .chip:nth-child(4) { animation-delay: 3.6s; }
+.zone-chips .chip:nth-child(5) { animation-delay: 4.8s; }
+.zone-chips .chip:nth-child(6) { animation-delay: 6s; }
+.zone-chips .chip:nth-child(7) { animation-delay: 7.2s; }
+@keyframes chipPulse {
+  0%, 14%, 100% { background: var(--navy-700); color: var(--sky-300); box-shadow: none; }
+  5%, 9% { background: var(--electric-500); color: #fff; box-shadow: 0 0 20px rgba(37,99,235,.6); }
+}
+@media (prefers-reduced-motion: reduce) { .zone-chips .chip { animation: none; } }
+
+/* Steps mit Bildern */
+.step-card .step-img { border-radius: 12px; overflow: hidden; height: 150px; margin-bottom: 14px; }
+.step-card .step-img img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Dezenter Hinweis (statt Warn-Box) */
+.note-subtle { font-size: 13px; line-height: 1.55; color: var(--slate-500); border-left: 2px solid var(--slate-300); padding: 8px 16px; }
+
+/* Body-Assessments mit Foto-Hintergrund */
+.assess { position: relative; overflow: hidden; background: var(--navy-900); }
+.assess .bgimg { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: .22; }
+.assess .container { position: relative; }
+.assess .metric { background: rgba(15,32,56,.90); border: 1px solid rgba(255,255,255,.06); }
+
+/* Mobile-Slideshow (Karussell mit Pfeilen) */
+.m-car { position: relative; }
+.m-car .car-btn { display: none; }
+@media (max-width: 860px) {
+  .m-car .car-track { display: flex !important; grid-template-columns: none !important; overflow-x: auto; scroll-snap-type: x mandatory; gap: 16px; padding: 4px 4px 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .m-car .car-track::-webkit-scrollbar { display: none; }
+  .m-car .car-track > * { flex: 0 0 84%; scroll-snap-align: center; }
+  .m-car .car-btn { display: grid; place-items: center; position: absolute; top: 40%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--electric-500); color: #fff; font-size: 20px; z-index: 5; cursor: pointer; box-shadow: 0 6px 18px rgba(10,22,38,.35); }
+  .m-car .car-prev { left: 4px; } .m-car .car-next { right: 4px; }
+}
+
+/* Location-Modal (Book-Seite) */
+.modal-backdrop { position: fixed; inset: 0; background: rgba(7,14,26,.74); backdrop-filter: blur(5px); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 18px; }
+.modal { background: #fff; border-radius: 20px; max-width: 580px; width: 100%; max-height: 88vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,.5); }
+.modal-head { padding: 26px 28px 6px; }
+.modal-head .eyebrow { margin-bottom: 8px; }
+.modal-head h3 { font-size: 1.5rem; }
+.modal-head p { font-size: .92rem; color: var(--slate-500); margin-top: 6px; }
+.modal-close { position: absolute; top: 14px; right: 16px; background: none; border: 0; font: 300 30px/1 var(--f-text); color: var(--slate-500); cursor: pointer; }
+.modal-search { padding: 14px 28px 4px; }
+.modal-search input { width: 100%; font: 400 16px/1.5 var(--f-text); color: var(--navy-900); background: var(--slate-050); border: 1px solid var(--slate-100); border-radius: var(--r-btn); padding: 13px 16px; }
+.modal-search input:focus { outline: 2px solid var(--electric-500); outline-offset: 2px; }
+.loc-list { overflow-y: auto; padding: 14px 28px 28px; display: grid; gap: 12px; }
+.loc-card { border: 1px solid var(--slate-100); border-radius: 14px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; gap: 14px; cursor: pointer; text-align: left; background: #fff; font-family: var(--f-text); transition: all .15s; }
+.loc-card:hover:not(.soon) { border-color: var(--electric-500); box-shadow: var(--shadow-card); transform: translateY(-1px); }
+.loc-card b { display: block; font-family: var(--f-disp); font-stretch: 112%; text-transform: uppercase; font-size: 1rem; color: var(--navy-900); margin-bottom: 3px; }
+.loc-card span { font-size: .88rem; color: var(--slate-500); }
+.loc-card .go { flex: 0 0 auto; font: 700 12px/1 var(--f-text); letter-spacing: .08em; text-transform: uppercase; color: var(--electric-500); }
+.loc-card.soon { opacity: .55; cursor: default; }
+.loc-card.soon .go { color: var(--slate-300); }
+.loc-empty { font-size: .92rem; color: var(--slate-500); text-align: center; padding: 18px 0; }
+.loc-selected { display: inline-flex; align-items: center; gap: 10px; background: rgba(37,99,235,.08); border: 1px solid rgba(37,99,235,.25); border-radius: 999px; padding: 9px 16px; font: 600 13px/1.3 var(--f-text); color: var(--navy-900); margin-bottom: 22px; }
+.loc-selected button { background: none; border: 0; color: var(--electric-500); font: 600 12px/1 var(--f-text); cursor: pointer; text-transform: uppercase; letter-spacing: .05em; }
+
 /* ---------- Mobile ---------- */
 @media (max-width: 860px) {
   body { font-size: 16px; }
