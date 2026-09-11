@@ -274,9 +274,33 @@ section, .sec { padding: clamp(4rem, 8vw, 7rem) 0; }
   .m-car .car-prev { left: 4px; } .m-car .car-next { right: 4px; }
 }
 
-/* Location-Modal (Book-Seite) */
+/* Location-Modal (Book-Seite) — 50/50: links Auswahl, rechts Karte */
 .modal-backdrop { position: fixed; inset: 0; background: rgba(7,14,26,.74); backdrop-filter: blur(5px); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 18px; }
 .modal { background: #fff; border-radius: 20px; max-width: 580px; width: 100%; max-height: 88vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,.5); }
+.modal.modal-split { max-width: 1020px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: minmax(0, 1fr); height: min(640px, 88vh); }
+.modal-left { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.modal-map { position: relative; min-height: 0; background: var(--slate-100); }
+.modal-map #locMap { position: absolute; inset: 0; }
+.map-note { position: absolute; left: 10px; bottom: 8px; z-index: 500; font: 600 10px/1.4 var(--f-text); letter-spacing: .04em; color: var(--slate-500); background: rgba(255,255,255,.85); border-radius: 6px; padding: 4px 8px; }
+@media (max-width: 900px) {
+  .modal.modal-split { grid-template-columns: 1fr; grid-template-rows: 210px minmax(0, 1fr); height: min(680px, 90vh); }
+  .modal-map { order: -1; }
+}
+/* Adresssuche + Nearest */
+.addr-row { display: flex; gap: 10px; }
+.addr-row input { flex: 1; }
+.addr-row .btn { padding: 13px 18px; font-size: 12px; white-space: nowrap; }
+.addr-hint { font-size: 12px; color: var(--slate-500); margin-top: 8px; }
+.addr-hint.err { color: var(--error-500); }
+.loc-card.nearest { border-color: var(--electric-500); background: rgba(37,99,235,.05); }
+.dist-badge { display: inline-block; font: 700 11px/1 var(--f-text); letter-spacing: .05em; color: var(--electric-500); background: rgba(37,99,235,.10); border-radius: 999px; padding: 5px 10px; margin-left: 8px; }
+.nearest-tag { font: 700 10px/1 var(--f-text); letter-spacing: .08em; text-transform: uppercase; color: #fff; background: var(--electric-500); border-radius: 999px; padding: 4px 9px; margin-left: 8px; }
+/* Marker (Leaflet divIcon) */
+.cs-pin { width: 30px; height: 30px; border-radius: 50% 50% 50% 4px; transform: rotate(-45deg); background: var(--electric-500); border: 3px solid #fff; box-shadow: 0 4px 12px rgba(10,22,38,.4); display: grid; place-items: center; }
+.cs-pin span { transform: rotate(45deg); color: #fff; font: 800 12px/1 var(--f-text); }
+.cs-pin.home { background: var(--navy-900); }
+.leaflet-popup-content { font-family: var(--f-text); }
+.leaflet-popup-content b { font-family: var(--f-disp); font-stretch: 112%; text-transform: uppercase; }
 .modal-head { padding: 26px 28px 6px; }
 .modal-head .eyebrow { margin-bottom: 8px; }
 .modal-head h3 { font-size: 1.5rem; }

@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="assets/style.css">
 <style>
   .book-steps { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 28px; }
@@ -99,7 +100,7 @@
         <img src="img/logo-white.png" alt="CS FITNESS">
         <p>Boutique EMS studio in Henderson, NV.<br>Maximum results. Minimum time.</p>
       </div>
-      <div><h5>Visit Us</h5><p>Address TBD<br>Henderson, NV<br>(Las Vegas Area)</p></div>
+      <div><h5>Visit Us</h5><p>Henderson · Address TBD<br>Anthem Village · 2540 Anthem Village Dr,<br>Suite 180, Henderson, NV 89052</p></div>
       <div><h5>Hours</h5><p>Mon – Sat · by appointment<br>Booking via Mindbody</p></div>
       <div><h5>Pages</h5><ul>
         <li><a href="how-it-works.html">How It Works</a></li>
@@ -113,55 +114,144 @@
   </div>
 </footer>
 
-<!-- LOCATION-MODAL: öffnet sich beim Seitenaufruf; Daten aus assets/locations.js (Admin-Panel-ready) -->
+<!-- LOCATION-MODAL: öffnet beim Seitenaufruf. 50/50: links Auswahl + Adresssuche, rechts Karte.
+     Daten: assets/locations.js (Admin-Panel-ready).
+     Karte im Mockup: Leaflet + OpenStreetMap (keyless). Für den Build auf Google Maps JS API
+     wechseln: nur initMap/addStudioMarkers/showHome austauschen + API-Key von Chris. -->
 <div class="modal-backdrop" id="locBackdrop" hidden>
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="locTitle" style="position:relative">
+  <div class="modal modal-split" role="dialog" aria-modal="true" aria-labelledby="locTitle" style="position:relative">
     <button class="modal-close" type="button" aria-label="Close" onclick="closeLoc()">×</button>
-    <div class="modal-head">
-      <div class="eyebrow">Book your free session</div>
-      <h3 id="locTitle">Choose your studio</h3>
-      <p>Select the CS Fitness location closest to you.</p>
+    <div class="modal-left">
+      <div class="modal-head">
+        <div class="eyebrow">Book your free session</div>
+        <h3 id="locTitle">Choose your studio</h3>
+        <p>Pick a location — or enter your address and we'll find the nearest studio for you.</p>
+      </div>
+      <div class="modal-search">
+        <div class="addr-row">
+          <input id="locSearch" type="text" placeholder="Your address or ZIP — e.g. 89052" autocomplete="off">
+          <button type="button" class="btn btn-primary" onclick="findNearest()">Find nearest</button>
+        </div>
+        <div class="addr-hint" id="locHint">We only use your address to calculate the distance — nothing is stored.</div>
+      </div>
+      <div class="loc-list" id="locList"></div>
     </div>
-    <div class="modal-search">
-      <input id="locSearch" type="text" placeholder="Search by city, ZIP or address …" autocomplete="off">
+    <div class="modal-map">
+      <div id="locMap"></div>
+      <div class="map-note">Mockup-Karte (OpenStreetMap) · finaler Build: Google Maps API</div>
     </div>
-    <div class="loc-list" id="locList"></div>
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="assets/locations.js"></script>
 <script>
   var backdrop = document.getElementById("locBackdrop");
   var listEl = document.getElementById("locList");
   var searchEl = document.getElementById("locSearch");
+  var hintEl = document.getElementById("locHint");
+  var LOCS = window.CS_LOCATIONS;
+  var userPos = null, map = null, homeMarker = null, studioMarkers = {};
 
-  function renderLocs(q) {
-    var t = (q || "").toLowerCase();
-    var items = window.CS_LOCATIONS.filter(function (l) {
-      return (l.name + " " + l.address + " " + l.city + " " + l.state + " " + l.zip).toLowerCase().indexOf(t) !== -1;
-    });
-    if (!items.length) { listEl.innerHTML = '<div class="loc-empty">No studio found for this search.</div>'; return; }
-    listEl.innerHTML = items.map(function (l) {
-      if (l.status === "open") {
-        return '<button type="button" class="loc-card" data-id="' + l.id + '"><span><b>' + l.name + '</b><span>' + l.address + " · " + l.city + ", " + l.state + " " + l.zip + '</span></span><span class="go">Select →</span></button>';
-      }
-      return '<div class="loc-card soon"><span><b>' + l.name + '</b><span>' + l.city + ", " + l.state + ' — opening soon</span></span><span class="go">Soon</span></div>';
+  function milesBetween(lat1, lng1, lat2, lng2) {
+    var toR = Math.PI / 180, R = 3958.8;
+    var dLat = (lat2 - lat1) * toR, dLng = (lng2 - lng1) * toR;
+    var h = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * toR) * Math.cos(lat2 * toR) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+    return R * 2 * Math.asin(Math.sqrt(h));
+  }
+
+  function sortedLocs() {
+    var arr = LOCS.slice();
+    if (userPos) {
+      arr.forEach(function (l) { l._mi = milesBetween(userPos.lat, userPos.lng, l.lat, l.lng); });
+      arr.sort(function (a, b) { return a._mi - b._mi; });
+    }
+    return arr;
+  }
+
+  function renderLocs() {
+    var arr = sortedLocs();
+    listEl.innerHTML = arr.map(function (l, i) {
+      var nearest = userPos && i === 0;
+      var dist = userPos ? '<span class="dist-badge">' + l._mi.toFixed(1) + " mi</span>" : "";
+      var tag = nearest ? '<span class="nearest-tag">Nearest</span>' : "";
+      return '<button type="button" class="loc-card' + (nearest ? " nearest" : "") + '" data-id="' + l.id + '">' +
+        "<span><b>" + l.name + tag + "</b><span>" + l.address + " · " + l.city + ", " + l.state + " " + l.zip + "</span></span>" +
+        '<span class="go">Select →' + dist + "</span></button>";
     }).join("");
     listEl.querySelectorAll("button.loc-card").forEach(function (b) {
       b.addEventListener("click", function () { selectLoc(b.getAttribute("data-id")); });
     });
   }
+
+  /* ---- Karten-Adapter (Mockup: Leaflet/OSM · Build: Google Maps JS API) ---- */
+  function initMap() {
+    if (map) return;
+    map = L.map("locMap", { scrollWheelZoom: false }).setView([36.013, -115.03], 11);
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '© OpenStreetMap'
+    }).addTo(map);
+    addStudioMarkers();
+  }
+  function addStudioMarkers() {
+    LOCS.forEach(function (l, i) {
+      var icon = L.divIcon({ className: "", html: '<div class="cs-pin"><span>' + (i + 1) + "</span></div>", iconSize: [30, 30], iconAnchor: [15, 28], popupAnchor: [0, -26] });
+      var m = L.marker([l.lat, l.lng], { icon: icon }).addTo(map);
+      m.bindPopup("<b>" + l.name + "</b><br>" + l.address + "<br>" + l.city + ", " + l.state + " " + l.zip +
+        '<br><br><a href="#" onclick="selectLoc(\'' + l.id + '\');return false" style="color:#2563EB;font-weight:700">SELECT THIS STUDIO →</a>');
+      studioMarkers[l.id] = m;
+    });
+    fitAll();
+  }
+  function showHome() {
+    if (homeMarker) map.removeLayer(homeMarker);
+    var icon = L.divIcon({ className: "", html: '<div class="cs-pin home"><span>⌂</span></div>', iconSize: [30, 30], iconAnchor: [15, 28] });
+    homeMarker = L.marker([userPos.lat, userPos.lng], { icon: icon }).addTo(map).bindPopup("<b>Your address</b>");
+    fitAll();
+  }
+  function fitAll() {
+    var pts = LOCS.map(function (l) { return [l.lat, l.lng]; });
+    if (userPos) pts.push([userPos.lat, userPos.lng]);
+    map.fitBounds(pts, { padding: [36, 36] });
+  }
+  /* ---- Ende Karten-Adapter ---- */
+
+  function findNearest() {
+    var q = searchEl.value.trim();
+    if (!q) { hintEl.textContent = "Please enter your address or ZIP first."; hintEl.className = "addr-hint err"; return; }
+    hintEl.textContent = "Looking up your address …"; hintEl.className = "addr-hint";
+    fetch("https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=us&q=" + encodeURIComponent(q))
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (!res.length) { hintEl.textContent = "Address not found — try adding city or ZIP (e.g. “… Henderson NV”)."; hintEl.className = "addr-hint err"; return; }
+        userPos = { lat: parseFloat(res[0].lat), lng: parseFloat(res[0].lon) };
+        hintEl.textContent = "Found: " + res[0].display_name.split(",").slice(0, 3).join(",") + " — studios sorted by distance.";
+        hintEl.className = "addr-hint";
+        renderLocs();
+        showHome();
+      })
+      .catch(function () { hintEl.textContent = "Lookup failed — please try again."; hintEl.className = "addr-hint err"; });
+  }
+
   function selectLoc(id) {
-    var l = window.CS_LOCATIONS.find(function (x) { return x.id === id; });
+    var l = LOCS.find(function (x) { return x.id === id; });
     if (!l) return;
-    document.getElementById("locName").textContent = l.name + " · " + l.city + ", " + l.state;
+    var extra = (typeof l._mi === "number") ? " · " + l._mi.toFixed(1) + " mi from you" : "";
+    document.getElementById("locName").textContent = l.name + " · " + (l.address !== "Address TBD" ? l.address + ", " : "") + l.city + ", " + l.state + extra;
     document.getElementById("locSelected").hidden = false;
     closeLoc();
     document.getElementById("booking").scrollIntoView({ behavior: "smooth", block: "start" });
   }
-  function openLoc() { backdrop.hidden = false; renderLocs(searchEl.value); setTimeout(function () { searchEl.focus(); }, 50); }
+  function openLoc() {
+    backdrop.hidden = false;
+    renderLocs();
+    initMap();
+    setTimeout(function () { map.invalidateSize(); fitAll(); searchEl.focus(); }, 60);
+  }
   function closeLoc() { backdrop.hidden = true; }
-  searchEl.addEventListener("input", function (e) { renderLocs(e.target.value); });
+
+  searchEl.addEventListener("keydown", function (e) { if (e.key === "Enter") findNearest(); });
   backdrop.addEventListener("click", function (e) { if (e.target === backdrop) closeLoc(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !backdrop.hidden) closeLoc(); });
   openLoc(); // beim Seitenaufruf direkt anzeigen
