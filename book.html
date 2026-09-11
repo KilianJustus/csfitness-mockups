@@ -116,8 +116,7 @@
 
 <!-- LOCATION-MODAL: öffnet beim Seitenaufruf. 50/50: links Auswahl + Adresssuche, rechts Karte.
      Daten: assets/locations.js (Admin-Panel-ready).
-     Karte im Mockup: Leaflet + OpenStreetMap (keyless). Für den Build auf Google Maps JS API
-     wechseln: nur initMap/addStudioMarkers/showHome austauschen + API-Key von Chris. -->
+     Karte: Leaflet + OpenStreetMap = FINALE Lösung (Entscheidung Kilian 09/2026, kein Google-Key nötig). -->
 <div class="modal-backdrop" id="locBackdrop" hidden>
   <div class="modal modal-split" role="dialog" aria-modal="true" aria-labelledby="locTitle" style="position:relative">
     <button class="modal-close" type="button" aria-label="Close" onclick="closeLoc()">×</button>
@@ -138,7 +137,6 @@
     </div>
     <div class="modal-map">
       <div id="locMap"></div>
-      <div class="map-note">Mockup-Karte (OpenStreetMap) · finaler Build: Google Maps API</div>
     </div>
   </div>
 </div>
@@ -185,7 +183,7 @@
     });
   }
 
-  /* ---- Karten-Adapter (Mockup: Leaflet/OSM · Build: Google Maps JS API) ---- */
+  /* ---- Karte: Leaflet + OpenStreetMap (finale Lösung) ---- */
   function initMap() {
     if (map) return;
     map = L.map("locMap", { scrollWheelZoom: false }).setView([36.013, -115.03], 11);
@@ -215,7 +213,7 @@
     if (userPos) pts.push([userPos.lat, userPos.lng]);
     map.fitBounds(pts, { padding: [36, 36] });
   }
-  /* ---- Ende Karten-Adapter ---- */
+  /* ---- Ende Karte ---- */
 
   function findNearest() {
     var q = searchEl.value.trim();
