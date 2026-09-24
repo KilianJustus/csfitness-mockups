@@ -77,7 +77,7 @@
         <img src="img/logo-white.png" alt="CS FITNESS">
         <p>Boutique EMS studio in Henderson, NV.<br>Maximum results. Minimum time.</p>
       </div>
-      <div><h5>Visit Us</h5><p>CS Fitness Green Valley · Henderson, NV<br>CS Fitness Anthem ·<br>2540 Anthem Village Dr, Suite 180, Henderson, NV 89052</p></div>
+      <div><h5>Visit Us</h5><p>CS Fitness Green Valley<br>180 S Stephanie St, Suite 120<br>Henderson, NV 89012<br><br>CS Fitness Anthem<br>2540 Anthem Village Dr, Suite 180<br>Henderson, NV 89052</p></div>
       <div><h5>Hours</h5><p>Mon – Sat · by appointment</p></div>
       <div><h5>Pages</h5><ul>
         <li><a href="how-it-works.html">How It Works</a></li>
@@ -227,18 +227,20 @@
   function renderStudioForm(l) {
     var box = document.getElementById("studioForm");
     if (!l) {
-      box.innerHTML = '<div class="placeholder" style="min-height:200px">Please choose your studio first' +
-        '<br><br><button type="button" class="btn btn-primary" onclick="openLoc()" style="text-transform:uppercase">Choose your studio</button></div>';
+      box.innerHTML = '<div class="studio-form"><div class="studio-form-empty">' +
+        "<p>Please choose your studio to continue.</p>" +
+        '<button type="button" class="btn btn-primary" onclick="openLoc()">Choose your studio</button>' +
+        "</div></div>";
       return;
     }
+    var head = '<div class="studio-form-head"><span class="t">' + l.name + "</span>" +
+      '<span class="sub">Free trial session · ' + (l.address ? l.address + " · " : "") + l.city + ", " + l.state + "</span></div>";
     if (l.formEmbed) {
-      box.innerHTML =
-        '<div class="studio-form-head"><span class="t">' + l.name + " — Session Request</span></div>" +
-        '<div class="studio-form-live">' + l.formEmbed + "</div>";
+      box.innerHTML = '<div class="studio-form">' + head + '<div class="studio-form-live">' + l.formEmbed + "</div></div>";
       return;
     }
     var inner =
-      '<form onsubmit="return false" style="padding:26px 26px 22px;background:#fff;border-radius:0 0 var(--r-card) var(--r-card)">' +
+      '<form onsubmit="return false" style="padding:28px 30px 26px;background:#fff">' +
         '<div class="grid grid-2" style="gap:0 18px;align-items:start">' +
         '<div class="field"><label>Name</label><input type="text" placeholder="Your name"></div>' +
         '<div class="field"><label>Email</label><input type="email" placeholder="you@example.com"></div>' +
@@ -247,9 +249,7 @@
         '<div class="field"><label>Message (optional)</label><textarea rows="3" placeholder="Anything we should know?"></textarea></div>' +
         '<button class="btn btn-primary" type="submit">Request Free Session</button>' +
         "</form>";
-    box.innerHTML =
-      '<div class="studio-form-head"><span class="t">' + l.name + " — Session Request</span></div>" +
-      '<div class="studio-form-shell">' + inner + "</div>";
+    box.innerHTML = '<div class="studio-form">' + head + inner + "</div>";
   }
   function openLoc() {
     backdrop.hidden = false;

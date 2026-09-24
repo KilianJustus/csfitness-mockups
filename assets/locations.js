@@ -1,7 +1,7 @@
 // Studio-Locations — zentrale Datenquelle.
 // Später Kandidat fürs Admin-Panel: diese Liste soll dann aus einer API/DB kommen,
 // die Website liest nur noch LOCATIONS. Felder bewusst schon "verwaltbar" geschnitten.
-// lat/lng: Näherungen für das Mockup — beim echten Build einmal sauber geocoden.
+// lat/lng: exakt geocodet (Nominatim) — bei Adressänderung neu geocoden.
 // formEmbed: LeadConnector-Formular (iframe) des Studios. Das zugehörige Script
 // https://link.msgsndr.com/js/form_embed.js wird einmalig in book.html geladen.
 // Green Valley: Form anpBVCUhwk6MtLYKFad6 ("Leadgen Form")
@@ -10,13 +10,13 @@ window.CS_LOCATIONS = [
   {
     id: "green-valley",
     name: "CS Fitness Green Valley",
-    address: "", // Straße noch offen (kommt von Chris) — leer = wird auf der Website nicht angezeigt
-    city: "Henderson", state: "NV", zip: "89052",
+    address: "180 S Stephanie St, Suite 120",
+    city: "Henderson", state: "NV", zip: "89012",
     phone: "+1 (702) XXX-XXXX", // Platzhalter — wird nicht angezeigt, solange XXX enthalten
     email: "greenvalley@csfitnessusa.com", // Platzhalter
     hours: "Mon – Sat · by appointment",
     status: "open", // open | soon
-    lat: 36.0289, lng: -115.0810, // Näherung Green Valley — geocoden, sobald Adresse feststeht
+    lat: 36.0229559, lng: -115.0465799, // exakt geocodet (Nominatim, 09/2026)
     formEmbed: `<iframe
     src="https://api.leadconnectorhq.com/widget/form/anpBVCUhwk6MtLYKFad6"
     style="width:100%;height:100%;border:none;border-radius:8px"
@@ -46,7 +46,7 @@ window.CS_LOCATIONS = [
     email: "anthem@csfitnessusa.com", // Platzhalter
     hours: "Mon – Sat · by appointment",
     status: "open",
-    lat: 35.9857, lng: -115.0842, // Näherung Anthem Village Dr — beim Build geocoden
+    lat: 35.9798619, lng: -115.0985626, // exakt geocodet (Nominatim, 09/2026)
     formEmbed: `<iframe
     src="https://api.leadconnectorhq.com/widget/form/BeUkM8eqwn52I4RZMMJW"
     style="width:100%;height:100%;border:none;border-radius:8px"
