@@ -336,15 +336,30 @@ section, .sec { padding: clamp(4rem, 8vw, 7rem) 0; }
 /* ---------- Mobile ---------- */
 @media (max-width: 860px) {
   body { font-size: 16px; }
-  .nav-links, .nav-cta { display: none; }
-  .nav-burger { display: block; }
-  .nav.open .nav-links {
-    display: flex; flex-direction: column; gap: 4px;
-    position: absolute; left: 0; right: 0; top: 100%;
-    background: var(--navy-950); padding: 16px 24px 24px;
-    border-bottom: 1px solid rgba(255,255,255,.08);
+  /* Mobile-Nav: Burger LINKS (Slide-out-Menü), Logo MITTIG, Book-CTA RECHTS */
+  /* Kein backdrop-filter auf Mobile: er würde die Nav zum Containing-Block für den
+     fixed positionierten Drawer machen (Drawer bliebe in der Nav gefangen). */
+  .nav { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(10,22,38,.97); }
+  .nav-inner { position: relative; z-index: 46; } /* Leiste (Burger/Logo/CTA) über dem Drawer halten */
+  .nav-burger { display: block; order: -1; padding: 4px 2px; }
+  .nav-logo { position: absolute; left: 50%; transform: translateX(-50%); }
+  .nav-logo img { height: 22px; }
+  .nav-cta { display: inline-block; margin-left: auto; padding: 9px 10px; font-size: 9.5px; letter-spacing: .03em; white-space: nowrap; }
+  .nav-links {
+    display: flex; flex-direction: column; gap: 2px;
+    position: fixed; top: 0; left: 0; bottom: 0; width: min(78vw, 300px);
+    background: var(--navy-950); padding: 92px 26px 26px;
+    transform: translateX(-105%); transition: transform .28s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 45; box-shadow: 24px 0 60px rgba(0,0,0,.45);
   }
-  .nav.open .nav-links a { display: block; padding: 12px 0; font-size: 15px; }
+  .nav.open .nav-links { transform: translateX(0); }
+  .nav-links a { display: block; padding: 13px 0; font-size: 15px; border-bottom: 1px solid rgba(255,255,255,.07); }
+  /* Burger animiert zum X, dient als Schließen-Button (liegt über dem Drawer) */
+  .nav-burger span { transition: transform .25s ease, opacity .2s ease; }
+  .nav.open .nav-burger span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .nav.open .nav-burger span:nth-child(2) { opacity: 0; }
+  .nav.open .nav-burger span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+  @media (prefers-reduced-motion: reduce) { .nav-links, .nav-burger span { transition: none; } }
   .grid-2, .grid-3, .grid-4, .grid-5, .footer .cols { grid-template-columns: 1fr; }
   .grid-2 { gap: 28px; }
   .stat-strip { gap: 24px 36px; }
