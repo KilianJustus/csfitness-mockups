@@ -55,13 +55,13 @@
           <div class="field"><label for="phone">Phone (optional)</label><input id="phone" type="tel" placeholder="+1 (702) …"></div>
           <div class="field"><label for="msg">Message</label><textarea id="msg" rows="5" placeholder="How can we help?"></textarea></div>
           <button class="btn btn-primary" type="submit">Send Message</button>
-          <p class="muted" style="font-size:12px;margin-top:12px">Mockup — Formular ohne Funktion. Für den Build: Form-Backend oder Mail-Service anbinden.</p>
+          <!-- Interne Notiz: Formular ist im Mockup ohne Funktion — beim Build Form-Backend/Mail-Service anbinden -->
         </form>
       </div>
       <aside>
         <div class="eyebrow" style="margin-bottom:14px">Our Studios</div>
         <div id="locBanners"></div>
-        <p class="muted" style="font-size:12px;margin-top:10px">Telefon &amp; E-Mail = Platzhalter — echte Kontaktdaten je Studio folgen von Chris.</p>
+        <!-- Interne Notiz: Telefon/E-Mail in locations.js sind Platzhalter — echte Kontaktdaten je Studio kommen von Chris -->
         <a class="btn btn-primary" style="width:100%;margin-top:14px" href="book.html">Book Free Session</a>
       </aside>
     </div>
@@ -76,7 +76,7 @@
         <img src="img/logo-white.png" alt="CS FITNESS">
         <p>Boutique EMS studio in Henderson, NV.<br>Maximum results. Minimum time.</p>
       </div>
-      <div><h5>Visit Us</h5><p>Henderson · Address TBD<br>Anthem Village · 2540 Anthem Village Dr,<br>Suite 180, Henderson, NV 89052</p></div>
+      <div><h5>Visit Us</h5><p>CS Fitness Henderson · Henderson, NV<br>CS Fitness Anthem Village ·<br>2540 Anthem Village Dr, Suite 180, Henderson, NV 89052</p></div>
       <div><h5>Hours</h5><p>Mon – Sat · by appointment</p></div>
       <div><h5>Pages</h5><ul>
         <li><a href="how-it-works.html">How It Works</a></li>
@@ -94,14 +94,15 @@
 <script src="assets/locations.js"></script>
 <script>
   // Kompakte Studio-Banner aus der zentralen Datenquelle (Admin-Panel-ready)
+  // Zeilen mit noch fehlenden Daten (leer oder XXX-Platzhalter) werden ausgeblendet —
+  // keine sichtbaren Platzhalter-Werte auf der Website.
   document.getElementById("locBanners").innerHTML = window.CS_LOCATIONS.map(function (l) {
-    return '<div class="loc-banner">' +
-      "<h4>" + l.name + "</h4>" +
-      '<div class="row"><span class="ic">📍</span><span>' + l.address + " · " + l.city + ", " + l.state + " " + l.zip + "</span></div>" +
-      '<div class="row"><span class="ic">📞</span><span>' + l.phone + "</span></div>" +
-      '<div class="row"><span class="ic">✉️</span><span>' + l.email + "</span></div>" +
-      '<div class="row"><span class="ic">🕐</span><span>' + l.hours + "</span></div>" +
-      "</div>";
+    var rows = "";
+    rows += '<div class="row"><span class="ic">📍</span><span>' + (l.address ? l.address + " · " : "") + l.city + ", " + l.state + " " + l.zip + "</span></div>";
+    if (l.phone && l.phone.indexOf("X") === -1) rows += '<div class="row"><span class="ic">📞</span><span>' + l.phone + "</span></div>";
+    if (l.email) rows += '<div class="row"><span class="ic">✉️</span><span>' + l.email + "</span></div>";
+    if (l.hours) rows += '<div class="row"><span class="ic">🕐</span><span>' + l.hours + "</span></div>";
+    return '<div class="loc-banner"><h4>' + l.name + "</h4>" + rows + "</div>";
   }).join("");
 
   // Karte (Leaflet + OpenStreetMap — finale Lösung) mit beiden Studio-Pins

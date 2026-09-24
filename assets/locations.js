@@ -8,7 +8,7 @@ window.CS_LOCATIONS = [
   {
     id: "henderson-1",
     name: "CS Fitness Henderson",
-    address: "Address TBD", // Platzhalter — echte Adresse von Chris nachtragen
+    address: "", // Straße noch offen (kommt von Chris) — leer = wird auf der Website nicht angezeigt
     city: "Henderson", state: "NV", zip: "89052",
     phone: "+1 (702) XXX-XXXX", // Platzhalter
     email: "henderson@csfitnessusa.com", // Platzhalter

@@ -63,7 +63,7 @@
     </div>
 
     <div class="grid grid-3" style="margin-top:56px">
-      <div class="step-card"><h4 style="font-size:1rem">🅿 Easy parking</h4><p>Free parking right at the studio. Platzhalter — Detail bestätigen.</p></div>
+      <div class="step-card"><h4 style="font-size:1rem">🅿 Easy parking</h4><p>Free parking right at the studio.</p></div>
       <div class="step-card"><h4 style="font-size:1rem">🚿 No prep needed</h4><p>Outfit, water and towels are waiting for you — come as you are.</p></div>
       <div class="step-card"><h4 style="font-size:1rem">❓ Questions first?</h4><p>Call us or check the <a href="about.html#faq" style="color:var(--electric-500);font-weight:600">FAQ</a> — we're happy to help.</p></div>
     </div>
@@ -77,7 +77,7 @@
         <img src="img/logo-white.png" alt="CS FITNESS">
         <p>Boutique EMS studio in Henderson, NV.<br>Maximum results. Minimum time.</p>
       </div>
-      <div><h5>Visit Us</h5><p>Henderson · Address TBD<br>Anthem Village · 2540 Anthem Village Dr,<br>Suite 180, Henderson, NV 89052</p></div>
+      <div><h5>Visit Us</h5><p>CS Fitness Henderson · Henderson, NV<br>CS Fitness Anthem Village ·<br>2540 Anthem Village Dr, Suite 180, Henderson, NV 89052</p></div>
       <div><h5>Hours</h5><p>Mon – Sat · by appointment</p></div>
       <div><h5>Pages</h5><ul>
         <li><a href="how-it-works.html">How It Works</a></li>
@@ -152,7 +152,7 @@
       var dist = userPos ? '<span class="dist-badge">' + l._mi.toFixed(1) + " mi</span>" : "";
       var tag = nearest ? '<span class="nearest-tag">Nearest</span>' : "";
       return '<button type="button" class="loc-card' + (nearest ? " nearest" : "") + '" data-id="' + l.id + '">' +
-        "<span><b>" + l.name + tag + "</b><span>" + l.address + " · " + l.city + ", " + l.state + " " + l.zip + "</span></span>" +
+        "<span><b>" + l.name + tag + "</b><span>" + (l.address ? l.address + " · " : "") + l.city + ", " + l.state + " " + l.zip + "</span></span>" +
         '<span class="go">Select →' + dist + "</span></button>";
     }).join("");
     listEl.querySelectorAll("button.loc-card").forEach(function (b) {
@@ -213,7 +213,7 @@
     var l = LOCS.find(function (x) { return x.id === id; });
     if (!l) return;
     var extra = (typeof l._mi === "number") ? " · " + l._mi.toFixed(1) + " mi from you" : "";
-    document.getElementById("locName").textContent = l.name + " · " + (l.address !== "Address TBD" ? l.address + ", " : "") + l.city + ", " + l.state + extra;
+    document.getElementById("locName").textContent = l.name + " · " + (l.address ? l.address + ", " : "") + l.city + ", " + l.state + extra;
     document.getElementById("locSelected").hidden = false;
     renderStudioForm(l);
     closeLoc();
@@ -222,21 +222,28 @@
 
   // Zeigt das Anfrage-Formular des gewählten Studios.
   // Jedes Studio hat ein EIGENES Formular — Embed-Code liefert Chris (locations.js -> formEmbed).
-  // Bis dahin: Platzhalter. Kein Kalender / kein Self-Booking.
+  // Bis der echte Embed-Code da ist, rendert das ein generisches (funktionsloses) Mock-Formular —
+  // bewusst OHNE sichtbare Redaktionsnotizen. Kein Kalender / kein Self-Booking.
   function renderStudioForm(l) {
     var box = document.getElementById("studioForm");
     if (!l) {
-      box.innerHTML = '<div class="placeholder" style="min-height:200px">Bitte zuerst ein Studio wählen' +
+      box.innerHTML = '<div class="placeholder" style="min-height:200px">Please choose your studio first' +
         '<br><br><button type="button" class="btn btn-primary" onclick="openLoc()" style="text-transform:uppercase">Choose your studio</button></div>';
       return;
     }
     var inner = l.formEmbed
       ? l.formEmbed
-      : '<div class="placeholder" style="min-height:260px;border:0;border-radius:0 0 var(--r-card) var(--r-card)">Anfrage-Formular „' + l.name + '"' +
-        '<br>Platzhalter — individueller Formular-Code<br>für dieses Studio folgt von Chris</div>';
+      : '<form onsubmit="return false" style="padding:26px 26px 22px;background:#fff;border-radius:0 0 var(--r-card) var(--r-card)">' +
+        '<div class="grid grid-2" style="gap:0 18px;align-items:start">' +
+        '<div class="field"><label>Name</label><input type="text" placeholder="Your name"></div>' +
+        '<div class="field"><label>Email</label><input type="email" placeholder="you@example.com"></div>' +
+        "</div>" +
+        '<div class="field"><label>Phone</label><input type="tel" placeholder="+1 (702) …"></div>' +
+        '<div class="field"><label>Message (optional)</label><textarea rows="3" placeholder="Anything we should know?"></textarea></div>' +
+        '<button class="btn btn-primary" type="submit">Request Free Session</button>' +
+        "</form>";
     box.innerHTML =
-      '<div class="studio-form-head"><span class="t">' + l.name + ' — Session Request</span>' +
-      '<span class="badge">Formular-Embed folgt</span></div>' +
+      '<div class="studio-form-head"><span class="t">' + l.name + " — Session Request</span></div>" +
       '<div class="studio-form-shell">' + inner + "</div>";
   }
   function openLoc() {
