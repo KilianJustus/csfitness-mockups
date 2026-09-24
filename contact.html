@@ -107,6 +107,7 @@
 
   // Karte (Leaflet + OpenStreetMap — finale Lösung) mit beiden Studio-Pins
   var cmap = L.map("contactMap", { scrollWheelZoom: false });
+  cmap.attributionControl.setPrefix('<a href="https://leafletjs.com" target="_blank" rel="noopener">Leaflet</a>'); // Standard-Prefix (mit Flaggen-Emoji) ersetzen
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { attribution: "© OpenStreetMap" }).addTo(cmap);
   var pts = [];
   window.CS_LOCATIONS.forEach(function (l, i) {

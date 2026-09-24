@@ -164,6 +164,7 @@
   function initMap() {
     if (map) return;
     map = L.map("locMap", { scrollWheelZoom: false }).setView([36.013, -115.03], 11);
+    map.attributionControl.setPrefix('<a href="https://leafletjs.com" target="_blank" rel="noopener">Leaflet</a>'); // Standard-Prefix (mit Flaggen-Emoji) ersetzen
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: '© OpenStreetMap'
     }).addTo(map);
