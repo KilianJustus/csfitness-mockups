@@ -8,16 +8,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="assets/style.css">
 <style>
   .contact-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
-  .info-card { background: var(--navy-900); border-radius: var(--r-card); padding: 32px 30px; }
-  .info-card h4 { color: #fff; }
-  .info-row { display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--navy-700); }
-  .info-row:last-child { border-bottom: 0; }
-  .info-row .t { font: 700 12px/1.4 var(--f-text); letter-spacing: .1em; text-transform: uppercase; color: var(--sky-300); }
-  .info-row p { color: var(--on-dark); font-size: .95rem; }
-  .map-block { height: 380px; margin-top: clamp(2.5rem, 5vw, 4rem); }
+  .map-block { height: 380px; margin-top: clamp(2.5rem, 5vw, 4rem); border-radius: var(--r-img); overflow: hidden; }
   @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
@@ -63,18 +58,14 @@
           <p class="muted" style="font-size:12px;margin-top:12px">Mockup — Formular ohne Funktion. Für den Build: Form-Backend oder Mail-Service anbinden.</p>
         </form>
       </div>
-      <aside class="info-card on-dark">
-        <div class="eyebrow">Studio Info</div>
-        <h4 style="margin-bottom:8px">CS Fitness Henderson</h4>
-        <div class="info-row"><div><div class="t">Locations</div><p>CS Fitness Henderson — Address TBD<br>CS Fitness Anthem Village —<br>2540 Anthem Village Dr, Suite 180,<br>Henderson, NV 89052</p></div></div>
-        <div class="info-row"><div><div class="t">Phone</div><p>+1 (702) XXX-XXXX — Platzhalter</p></div></div>
-        <div class="info-row"><div><div class="t">Email</div><p>hello@csfitnessusa.com — Platzhalter</p></div></div>
-        <div class="info-row"><div><div class="t">Hours</div><p>Mon – Sat · by appointment<br>Booking via Mindbody</p></div></div>
-        <div class="info-row"><div><div class="t">Social</div><p>@csfitnessusa — Platzhalter</p></div></div>
-        <a class="btn btn-primary" style="width:100%;margin-top:20px" href="book.html">Book Free Session</a>
+      <aside>
+        <div class="eyebrow" style="margin-bottom:14px">Our Studios</div>
+        <div id="locBanners"></div>
+        <p class="muted" style="font-size:12px;margin-top:10px">Telefon &amp; E-Mail = Platzhalter — echte Kontaktdaten je Studio folgen von Chris.</p>
+        <a class="btn btn-primary" style="width:100%;margin-top:14px" href="book.html">Book Free Session</a>
       </aside>
     </div>
-    <div class="placeholder map-block">Google-Maps-Embed<br>(Studio-Standort Henderson — Adresse folgt)</div>
+    <div class="map-block" id="contactMap"></div>
   </div>
 </section>
 
@@ -86,7 +77,7 @@
         <p>Boutique EMS studio in Henderson, NV.<br>Maximum results. Minimum time.</p>
       </div>
       <div><h5>Visit Us</h5><p>Henderson · Address TBD<br>Anthem Village · 2540 Anthem Village Dr,<br>Suite 180, Henderson, NV 89052</p></div>
-      <div><h5>Hours</h5><p>Mon – Sat · by appointment<br>Booking via Mindbody</p></div>
+      <div><h5>Hours</h5><p>Mon – Sat · by appointment</p></div>
       <div><h5>Pages</h5><ul>
         <li><a href="how-it-works.html">How It Works</a></li>
         <li><a href="results.html">Results</a></li>
@@ -99,5 +90,30 @@
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="assets/locations.js"></script>
+<script>
+  // Kompakte Studio-Banner aus der zentralen Datenquelle (Admin-Panel-ready)
+  document.getElementById("locBanners").innerHTML = window.CS_LOCATIONS.map(function (l) {
+    return '<div class="loc-banner">' +
+      "<h4>" + l.name + "</h4>" +
+      '<div class="row"><span class="ic">📍</span><span>' + l.address + " · " + l.city + ", " + l.state + " " + l.zip + "</span></div>" +
+      '<div class="row"><span class="ic">📞</span><span>' + l.phone + "</span></div>" +
+      '<div class="row"><span class="ic">✉️</span><span>' + l.email + "</span></div>" +
+      '<div class="row"><span class="ic">🕐</span><span>' + l.hours + "</span></div>" +
+      "</div>";
+  }).join("");
+
+  // Karte (Leaflet + OpenStreetMap — finale Lösung) mit beiden Studio-Pins
+  var cmap = L.map("contactMap", { scrollWheelZoom: false });
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { attribution: "© OpenStreetMap" }).addTo(cmap);
+  var pts = [];
+  window.CS_LOCATIONS.forEach(function (l, i) {
+    var icon = L.divIcon({ className: "", html: '<div class="cs-pin"><span>' + (i + 1) + "</span></div>", iconSize: [30, 30], iconAnchor: [15, 28], popupAnchor: [0, -26] });
+    L.marker([l.lat, l.lng], { icon: icon }).addTo(cmap).bindPopup("<b>" + l.name + "</b><br>" + l.address + "<br>" + l.city + ", " + l.state + " " + l.zip);
+    pts.push([l.lat, l.lng]);
+  });
+  cmap.fitBounds(pts, { padding: [40, 40] });
+</script>
 </body>
 </html>

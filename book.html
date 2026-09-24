@@ -16,18 +16,7 @@
     border: 1px solid rgba(255,255,255,.14); border-radius: 999px; padding: 10px 18px;
     font: 600 13px/1.3 var(--f-text); color: #fff; }
   .book-steps .bs b { font-family: var(--f-disp); font-stretch: 120%; color: var(--sky-300); }
-  .widget-shell { border: 1px dashed var(--slate-300); border-radius: var(--r-card); overflow: hidden; }
-  .widget-head { background: var(--navy-900); color: #fff; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
-  .widget-head .t { font: 700 13px/1 var(--f-text); letter-spacing: .1em; text-transform: uppercase; }
-  .widget-head .badge { font: 600 11px/1 var(--f-text); letter-spacing: .08em; text-transform: uppercase; background: var(--navy-700); color: var(--sky-300); border-radius: 999px; padding: 7px 12px; }
-  .cal { padding: 24px; background: var(--slate-050); }
-  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
-  .cal-cell { background: #fff; border: 1px solid var(--slate-100); border-radius: 8px; padding: 10px 8px; font: 600 12px/1.4 var(--f-text); color: var(--slate-500); text-align: center; }
-  .cal-cell.head { background: transparent; border: 0; color: var(--slate-500); text-transform: uppercase; letter-spacing: .06em; font-size: 11px; }
-  .cal-cell.free { color: var(--electric-500); border-color: rgba(37,99,235,.35); cursor: pointer; }
-  .cal-cell.sel { background: var(--electric-500); color: #fff; border-color: var(--electric-500); }
-  .cal-note { text-align: center; padding: 16px 24px 24px; background: var(--slate-050); color: var(--slate-500); font-size: 13px; }
-  @media (max-width: 640px) { .cal-grid { grid-template-columns: repeat(4, 1fr); } .cal-cell.head:nth-child(n+5) { display: none; } }
+  /* (Kalender-Styles entfernt — kein Self-Booking; Formulare je Studio, siehe #studioForm) */
 </style>
 </head>
 <body>
@@ -51,11 +40,11 @@
   <div class="container">
     <div class="eyebrow">Book now</div>
     <h1>Your free session<br><span class="grad-text">starts here</span></h1>
-    <p class="sub">Pick a time that works for you — the whole visit takes about 45 minutes including consultation, InBody scan and your first 20-minute EMS workout.</p>
+    <p class="sub">Choose your studio and send us your request — we'll get back to you to schedule your free session. The visit takes about 45 minutes including consultation, InBody scan and your first 20-minute EMS workout.</p>
     <div class="book-steps">
       <div class="bs"><b>1</b> Choose your studio</div>
-      <div class="bs"><b>2</b> Pick your time slot</div>
-      <div class="bs"><b>3</b> Show up — we handle the rest</div>
+      <div class="bs"><b>2</b> Send your request</div>
+      <div class="bs"><b>3</b> We schedule your session together</div>
     </div>
     <div style="margin-top:22px;font:500 14px/1 var(--f-text);color:rgba(255,255,255,.65)"><span style="color:var(--sky-300);letter-spacing:2px">★★★★★</span> 5.0 · Google Reviews · 10,000+ sessions delivered</div>
   </div>
@@ -64,25 +53,13 @@
 <section>
   <div class="container">
     <div class="sec-head">
-      <div class="eyebrow">Scheduling</div>
-      <h2>Choose your slot</h2>
+      <div class="eyebrow">Your request</div>
+      <h2>Request your free session</h2>
+      <p class="sec-intro" style="color:var(--slate-700);margin-top:10px">Each studio has its own request form. Send it off and the team will reach out to schedule your first session — appointments are always arranged personally, not booked online.</p>
     </div>
     <div class="loc-selected" id="locSelected" hidden>📍 <span id="locName"></span> <button type="button" onclick="openLoc()">Change</button></div>
-    <div class="widget-shell" id="booking">
-      <div class="widget-head">
-        <span class="t">Mindbody Booking</span>
-        <span class="badge">Embed-Platzhalter — bestehende Mindbody-Integration einbinden</span>
-      </div>
-      <div class="cal">
-        <div class="cal-grid">
-          <div class="cal-cell head">Mon</div><div class="cal-cell head">Tue</div><div class="cal-cell head">Wed</div><div class="cal-cell head">Thu</div><div class="cal-cell head">Fri</div><div class="cal-cell head">Sat</div><div class="cal-cell head">Sun</div>
-          <div class="cal-cell free">9:00</div><div class="cal-cell free">9:00</div><div class="cal-cell">9:00</div><div class="cal-cell free">9:00</div><div class="cal-cell free">9:00</div><div class="cal-cell free">10:00</div><div class="cal-cell">—</div>
-          <div class="cal-cell sel">10:30</div><div class="cal-cell">10:30</div><div class="cal-cell free">10:30</div><div class="cal-cell free">10:30</div><div class="cal-cell">10:30</div><div class="cal-cell free">11:30</div><div class="cal-cell">—</div>
-          <div class="cal-cell free">16:00</div><div class="cal-cell free">16:00</div><div class="cal-cell free">16:00</div><div class="cal-cell">16:00</div><div class="cal-cell free">16:00</div><div class="cal-cell">—</div><div class="cal-cell">—</div>
-          <div class="cal-cell free">18:30</div><div class="cal-cell">18:30</div><div class="cal-cell free">18:30</div><div class="cal-cell free">18:30</div><div class="cal-cell">18:30</div><div class="cal-cell">—</div><div class="cal-cell">—</div>
-        </div>
-      </div>
-      <div class="cal-note">Mockup-Kalender. Im Build wird hier das echte Mindbody-Widget (bestehende Integration von csfitnessusa.com/mindbody-bookings) eingebettet.</div>
+    <div id="booking">
+      <div id="studioForm"></div>
     </div>
 
     <div class="grid grid-3" style="margin-top:56px">
@@ -101,7 +78,7 @@
         <p>Boutique EMS studio in Henderson, NV.<br>Maximum results. Minimum time.</p>
       </div>
       <div><h5>Visit Us</h5><p>Henderson · Address TBD<br>Anthem Village · 2540 Anthem Village Dr,<br>Suite 180, Henderson, NV 89052</p></div>
-      <div><h5>Hours</h5><p>Mon – Sat · by appointment<br>Booking via Mindbody</p></div>
+      <div><h5>Hours</h5><p>Mon – Sat · by appointment</p></div>
       <div><h5>Pages</h5><ul>
         <li><a href="how-it-works.html">How It Works</a></li>
         <li><a href="results.html">Results</a></li>
@@ -238,8 +215,29 @@
     var extra = (typeof l._mi === "number") ? " · " + l._mi.toFixed(1) + " mi from you" : "";
     document.getElementById("locName").textContent = l.name + " · " + (l.address !== "Address TBD" ? l.address + ", " : "") + l.city + ", " + l.state + extra;
     document.getElementById("locSelected").hidden = false;
+    renderStudioForm(l);
     closeLoc();
     document.getElementById("booking").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  // Zeigt das Anfrage-Formular des gewählten Studios.
+  // Jedes Studio hat ein EIGENES Formular — Embed-Code liefert Chris (locations.js -> formEmbed).
+  // Bis dahin: Platzhalter. Kein Kalender / kein Self-Booking.
+  function renderStudioForm(l) {
+    var box = document.getElementById("studioForm");
+    if (!l) {
+      box.innerHTML = '<div class="placeholder" style="min-height:200px">Bitte zuerst ein Studio wählen' +
+        '<br><br><button type="button" class="btn btn-primary" onclick="openLoc()" style="text-transform:uppercase">Choose your studio</button></div>';
+      return;
+    }
+    var inner = l.formEmbed
+      ? l.formEmbed
+      : '<div class="placeholder" style="min-height:260px;border:0;border-radius:0 0 var(--r-card) var(--r-card)">Anfrage-Formular „' + l.name + '"' +
+        '<br>Platzhalter — individueller Formular-Code<br>für dieses Studio folgt von Chris</div>';
+    box.innerHTML =
+      '<div class="studio-form-head"><span class="t">' + l.name + ' — Session Request</span>' +
+      '<span class="badge">Formular-Embed folgt</span></div>' +
+      '<div class="studio-form-shell">' + inner + "</div>";
   }
   function openLoc() {
     backdrop.hidden = false;
@@ -252,6 +250,7 @@
   searchEl.addEventListener("keydown", function (e) { if (e.key === "Enter") findNearest(); });
   backdrop.addEventListener("click", function (e) { if (e.target === backdrop) closeLoc(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !backdrop.hidden) closeLoc(); });
+  renderStudioForm(null); // Startzustand: erst Studio wählen
   openLoc(); // beim Seitenaufruf direkt anzeigen
 </script>
 </body>
