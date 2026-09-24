@@ -1,22 +1,31 @@
-// Studio-Locations — zentrale Datenquelle.
-// Später Kandidat fürs Admin-Panel: diese Liste soll dann aus einer API/DB kommen,
-// die Website liest nur noch LOCATIONS. Felder bewusst schon "verwaltbar" geschnitten.
+// Studio-Locations — zentrale Datenquelle für Buchungs-Modal, Studio-Landingpages,
+// Contact-Banner und Karten. Später Kandidat fürs Admin-Panel: diese Liste soll dann
+// aus einer API/DB kommen, die Website liest nur noch LOCATIONS.
 // lat/lng: exakt geocodet (Nominatim) — bei Adressänderung neu geocoden.
-// formEmbed: LeadConnector-Formular (iframe) des Studios. Das zugehörige Script
-// https://link.msgsndr.com/js/form_embed.js wird einmalig in book.html geladen.
-// Green Valley: Form anpBVCUhwk6MtLYKFad6 ("Leadgen Form")
-// Anthem:       Form BeUkM8eqwn52I4RZMMJW ("Lead Form Trial Session Anthem")
+// formEmbed: LeadConnector-Formular (iframe) des Studios; form_embed.js wird von
+//   booking-modal.js / der Landingpage einmalig nachgeladen.
+//   Green Valley: anpBVCUhwk6MtLYKFad6 · Anthem: BeUkM8eqwn52I4RZMMJW
 window.CS_LOCATIONS = [
   {
     id: "green-valley",
+    page: "studio-green-valley.html",
     name: "CS Fitness Green Valley",
+    shortName: "Green Valley",
     address: "180 S Stephanie St, Suite 120",
     city: "Henderson", state: "NV", zip: "89012",
-    phone: "+1 (702) XXX-XXXX", // Platzhalter — wird nicht angezeigt, solange XXX enthalten
+    phone: "+1 (702) XXX-XXXX", // Platzhalter — wird ausgeblendet, solange XXX enthalten
     email: "greenvalley@csfitnessusa.com", // Platzhalter
     hours: "Mon – Sat · by appointment",
+    hoursDetail: [
+      ["Mon", "By appointment"], ["Tue", "By appointment"], ["Wed", "By appointment"],
+      ["Thu", "By appointment"], ["Fri", "By appointment"], ["Sat", "By appointment"],
+      ["Sun", "Closed"]
+    ],
+    rating: "5.0",
+    googleUrl: "https://www.google.com/maps", // später: echtes Google-Business-Profil
     status: "open", // open | soon
-    lat: 36.0229559, lng: -115.0465799, // exakt geocodet (Nominatim, 09/2026)
+    lat: 36.0229559, lng: -115.0465799,
+    photoCount: 6, // Slider-Slots (Fotos folgen)
     formEmbed: `<iframe
     src="https://api.leadconnectorhq.com/widget/form/anpBVCUhwk6MtLYKFad6"
     style="width:100%;height:100%;border:none;border-radius:8px"
@@ -39,14 +48,24 @@ window.CS_LOCATIONS = [
   },
   {
     id: "anthem",
+    page: "studio-anthem.html",
     name: "CS Fitness Anthem",
+    shortName: "Anthem",
     address: "2540 Anthem Village Dr, Suite 180",
     city: "Henderson", state: "NV", zip: "89052",
-    phone: "+1 (702) XXX-XXXX", // Platzhalter — wird nicht angezeigt, solange XXX enthalten
+    phone: "+1 (702) XXX-XXXX", // Platzhalter
     email: "anthem@csfitnessusa.com", // Platzhalter
     hours: "Mon – Sat · by appointment",
+    hoursDetail: [
+      ["Mon", "By appointment"], ["Tue", "By appointment"], ["Wed", "By appointment"],
+      ["Thu", "By appointment"], ["Fri", "By appointment"], ["Sat", "By appointment"],
+      ["Sun", "Closed"]
+    ],
+    rating: "5.0",
+    googleUrl: "https://www.google.com/maps",
     status: "open",
-    lat: 35.9798619, lng: -115.0985626, // exakt geocodet (Nominatim, 09/2026)
+    lat: 35.9798619, lng: -115.0985626,
+    photoCount: 6,
     formEmbed: `<iframe
     src="https://api.leadconnectorhq.com/widget/form/BeUkM8eqwn52I4RZMMJW"
     style="width:100%;height:100%;border:none;border-radius:8px"
