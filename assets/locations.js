@@ -4,8 +4,8 @@
 // lat/lng: Näherungen für das Mockup — beim echten Build einmal sauber geocoden.
 // formEmbed: LeadConnector-Formular (iframe) des Studios. Das zugehörige Script
 // https://link.msgsndr.com/js/form_embed.js wird einmalig in book.html geladen.
-// ACHTUNG: Stand 09/2026 haben BEIDE Studios dieselbe Form-ID (anpBVCUhwk6MtLYKFad6)
-// — so von Kilian/Chris geliefert. Sobald es eine eigene ID je Studio gibt: hier tauschen.
+// Green Valley: Form anpBVCUhwk6MtLYKFad6 ("Leadgen Form")
+// Anthem:       Form BeUkM8eqwn52I4RZMMJW ("Lead Form Trial Session Anthem")
 window.CS_LOCATIONS = [
   {
     id: "green-valley",
@@ -48,9 +48,9 @@ window.CS_LOCATIONS = [
     status: "open",
     lat: 35.9857, lng: -115.0842, // Näherung Anthem Village Dr — beim Build geocoden
     formEmbed: `<iframe
-    src="https://api.leadconnectorhq.com/widget/form/anpBVCUhwk6MtLYKFad6"
+    src="https://api.leadconnectorhq.com/widget/form/BeUkM8eqwn52I4RZMMJW"
     style="width:100%;height:100%;border:none;border-radius:8px"
-    id="inline-anpBVCUhwk6MtLYKFad6-anthem"
+    id="inline-BeUkM8eqwn52I4RZMMJW"
     data-layout="{'id':'INLINE'}"
     data-trigger-type="alwaysShow"
     data-trigger-value=""
@@ -58,13 +58,13 @@ window.CS_LOCATIONS = [
     data-activation-value=""
     data-deactivation-type="neverDeactivate"
     data-deactivation-value=""
-    data-form-name="Leadgen Form"
-    data-height="undefined"
-    data-layout-iframe-id="inline-anpBVCUhwk6MtLYKFad6-anthem"
-    data-form-id="anpBVCUhwk6MtLYKFad6"
+    data-form-name="Lead Form Trial Session Anthem"
+    data-height="755"
+    data-layout-iframe-id="inline-BeUkM8eqwn52I4RZMMJW"
+    data-form-id="BeUkM8eqwn52I4RZMMJW"
     data-cookie-consent="true"
     data-cookie-consent-provider="auto"
-    title="Leadgen Form"
+    title="Lead Form Trial Session Anthem"
 ></iframe>`
   }
 ];
