@@ -77,7 +77,7 @@
         <img src="img/logo-white.png" alt="CS FITNESS">
         <p>Boutique EMS studio in Henderson, NV.<br>Maximum results. Minimum time.</p>
       </div>
-      <div><h5>Visit Us</h5><p>CS Fitness Henderson · Henderson, NV<br>CS Fitness Anthem Village ·<br>2540 Anthem Village Dr, Suite 180, Henderson, NV 89052</p></div>
+      <div><h5>Visit Us</h5><p>CS Fitness Green Valley · Henderson, NV<br>CS Fitness Anthem ·<br>2540 Anthem Village Dr, Suite 180, Henderson, NV 89052</p></div>
       <div><h5>Hours</h5><p>Mon – Sat · by appointment</p></div>
       <div><h5>Pages</h5><ul>
         <li><a href="how-it-works.html">How It Works</a></li>
@@ -221,10 +221,9 @@
     document.getElementById("booking").scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  // Zeigt das Anfrage-Formular des gewählten Studios.
-  // Jedes Studio hat ein EIGENES Formular — Embed-Code liefert Chris (locations.js -> formEmbed).
-  // Bis der echte Embed-Code da ist, rendert das ein generisches (funktionsloses) Mock-Formular —
-  // bewusst OHNE sichtbare Redaktionsnotizen. Kein Kalender / kein Self-Booking.
+  // Zeigt das Anfrage-Formular des gewählten Studios (locations.js -> formEmbed:
+  // LeadConnector-iframe; das Embed-Script ist unten einmalig eingebunden).
+  // Fallback ohne formEmbed: generisches Mock-Formular. Kein Kalender / kein Self-Booking.
   function renderStudioForm(l) {
     var box = document.getElementById("studioForm");
     if (!l) {
@@ -232,9 +231,14 @@
         '<br><br><button type="button" class="btn btn-primary" onclick="openLoc()" style="text-transform:uppercase">Choose your studio</button></div>';
       return;
     }
-    var inner = l.formEmbed
-      ? l.formEmbed
-      : '<form onsubmit="return false" style="padding:26px 26px 22px;background:#fff;border-radius:0 0 var(--r-card) var(--r-card)">' +
+    if (l.formEmbed) {
+      box.innerHTML =
+        '<div class="studio-form-head"><span class="t">' + l.name + " — Session Request</span></div>" +
+        '<div class="studio-form-live">' + l.formEmbed + "</div>";
+      return;
+    }
+    var inner =
+      '<form onsubmit="return false" style="padding:26px 26px 22px;background:#fff;border-radius:0 0 var(--r-card) var(--r-card)">' +
         '<div class="grid grid-2" style="gap:0 18px;align-items:start">' +
         '<div class="field"><label>Name</label><input type="text" placeholder="Your name"></div>' +
         '<div class="field"><label>Email</label><input type="email" placeholder="you@example.com"></div>' +
@@ -261,5 +265,7 @@
   renderStudioForm(null); // Startzustand: erst Studio wählen
   openLoc(); // beim Seitenaufruf direkt anzeigen
 </script>
+<!-- LeadConnector Embed-Script (einmalig) — resized die per formEmbed injizierten Formular-iframes -->
+<script src="https://link.msgsndr.com/js/form_embed.js"></script>
 </body>
 </html>
