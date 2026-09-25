@@ -76,7 +76,7 @@
         <img src="img/logo-white.png" alt="CS FITNESS">
         <p>Boutique EMS studio in Henderson, NV.<br>Maximum results. Minimum time.</p>
       </div>
-      <div><h5>Visit Us</h5><p>CS Fitness Green Valley<br>180 S Stephanie St, Suite 120<br>Henderson, NV 89012<br><br>CS Fitness Anthem<br>2540 Anthem Village Dr, Suite 180<br>Henderson, NV 89052</p></div>
+      <div><h5>Visit Us</h5><p>CS FITNESS Green Valley<br>180 S Stephanie St, Suite 120<br>Henderson, NV 89012<br><br>CS FITNESS Anthem<br>2540 Anthem Village Dr, Suite 180<br>Henderson, NV 89052</p></div>
       <div><h5>Hours</h5><p>Mon – Sat · by appointment</p></div>
       <div><h5>Pages</h5><ul>
         <li><a href="how-it-works.html">How It Works</a></li>
@@ -99,10 +99,10 @@
   // keine sichtbaren Platzhalter-Werte auf der Website.
   document.getElementById("locBanners").innerHTML = window.CS_LOCATIONS.map(function (l) {
     var rows = "";
-    rows += '<div class="row"><span class="ic">📍</span><span>' + (l.address ? l.address + " · " : "") + l.city + ", " + l.state + " " + l.zip + "</span></div>";
-    if (l.phone && l.phone.indexOf("X") === -1) rows += '<div class="row"><span class="ic">📞</span><span>' + l.phone + "</span></div>";
-    if (l.email) rows += '<div class="row"><span class="ic">✉️</span><span>' + l.email + "</span></div>";
-    if (l.hours) rows += '<div class="row"><span class="ic">🕐</span><span>' + l.hours + "</span></div>";
+    rows += '<div class="row"><span>' + (l.address ? l.address + " · " : "") + l.city + ", " + l.state + " " + l.zip + "</span></div>";
+    if (l.phone && l.phone.indexOf("X") === -1) rows += '<div class="row"><span>' + l.phone + "</span></div>";
+    if (l.email) rows += '<div class="row"><span>' + l.email + "</span></div>";
+    if (l.hours) rows += '<div class="row"><span>' + l.hours + "</span></div>";
     return '<div class="loc-banner"><h4>' + l.name + "</h4>" + rows + "</div>";
   }).join("");
 

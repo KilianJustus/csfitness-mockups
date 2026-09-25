@@ -15,23 +15,22 @@
   function set(sel, html) { var e = document.querySelector(sel); if (e) e.innerHTML = html; }
 
   /* --- Hero --- */
-  set("#sName", S.shortName + '<span class="grad-text">Henderson, NV</span>');
-  set("#sIntro", "Train smarter at " + S.name + ". Our EMS training combines Electro Muscle Stimulation with certified " +
-    "coaches to deliver a personalized full-body workout in just 20 minutes.");
+  set("#sName", S.shortName + '<span class="grad-text">EMS Training Studio</span>');
+  set("#sIntro", "Train smarter at " + S.name + ". Our EMS training combines Electro Muscle Stimulation with " +
+    "certified coaches to deliver a personalized full-body workout in just 20 minutes, once a week.");
 
   set("#sFacts",
-    '<div class="f"><span class="ic">&#128205;</span><span><b>' + S.name + "</b><br>" +
+    '<div class="f"><span><b>' + S.name + "</b><br>" +
       '<a href="' + mapsLink + '" target="_blank" rel="noopener">' + fullAddr + "</a></span></div>" +
-    '<div class="f"><span class="ic">&#128336;</span><span><b>Hours</b><br>' + S.hours + "</span></div>" +
-    (hasPhone ? '<div class="f"><span class="ic">&#128222;</span><span><b>Phone</b><br><a href="tel:' +
+    (hasPhone ? '<div class="f"><span><b>Phone</b><br><a href="tel:' +
       telHref + '">' + S.phone + "</a></span></div>" : "") +
-    '<div class="f"><span class="ic">&#9733;</span><span class="gmark"><span class="val">' + S.rating + "</span>" +
+    (S.reviews ? '<div class="f"><span class="gmark"><span class="val">' + S.rating + "</span>" +
       '<span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>' +
-      '<a href="' + S.googleUrl + '" target="_blank" rel="noopener">Google Reviews</a></span></div>');
+      '<a href="' + S.googleUrl + '" target="_blank" rel="noopener">Google Reviews</a></span></div>' : ""));
 
   /* --- Hero-Formular (LeadConnector) --- */
   set("#sFormHead", '<span class="t">Book your free session</span>' +
-    '<span class="s">' + S.name + " &middot; free InBody scan included</span>");
+    '<span class="s">' + S.name + "</span>");
   var formBox = document.querySelector("#sForm");
   if (formBox && S.formEmbed) {
     formBox.innerHTML = S.formEmbed;
@@ -50,8 +49,8 @@
 
   /* --- Studio-Details --- */
   set("#sDetailsIntro", S.name + " is a boutique EMS studio in " + S.city + ", " + S.state +
-    " where strength training meets smart technology. Every session is coach-led, low-impact and built around your goals — " +
-    "so you get results you can see and feel, without spending hours in the gym.");
+    " where strength training meets smart technology. Every session is coach-led, low-impact and built around your " +
+    "goals, so you get results you can see and feel without spending hours in the gym.");
   set("#sContact",
     (hasPhone ? '<p><a href="tel:' + telHref + '">' + S.phone + "</a></p>" : "") +
     '<p><a href="mailto:' + S.email + '">' + S.email + "</a></p>");
@@ -62,10 +61,15 @@
     return "<li><span>" + h[0] + "</span><span>" + h[1] + "</span></li>";
   }).join("") + "</ul>");
 
-  /* --- Review-Bar --- */
-  set("#sRating", S.rating);
-  var gl = document.querySelector("#sGoogleLink");
-  if (gl) gl.href = S.googleUrl;
+  /* --- Review-Bar: nur bei eigenem Google-Profil (sonst Sektion raus) --- */
+  var revSec = document.querySelector("#sReviews");
+  if (!S.reviews) {
+    if (revSec) revSec.remove();
+  } else {
+    set("#sRating", S.rating);
+    var gl = document.querySelector("#sGoogleLink");
+    if (gl) gl.href = S.googleUrl;
+  }
 
   /* --- CTA-Banner --- */
   set("#sCtaName", S.name);

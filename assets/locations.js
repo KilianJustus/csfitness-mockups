@@ -9,7 +9,7 @@ window.CS_LOCATIONS = [
   {
     id: "green-valley",
     page: "studio-green-valley.html",
-    name: "CS Fitness Green Valley",
+    name: "CS FITNESS Green Valley",
     shortName: "Green Valley",
     address: "180 S Stephanie St, Suite 120",
     city: "Henderson", state: "NV", zip: "89012",
@@ -22,7 +22,8 @@ window.CS_LOCATIONS = [
       ["Sun", "Closed"]
     ],
     rating: "5.0",
-    googleUrl: "https://www.google.com/maps", // später: echtes Google-Business-Profil
+    googleUrl: "https://maps.app.goo.gl/L5aSCx4kzmqcKFig8",
+    reviews: true, // Google-Profil vorhanden -> Bewertungs-Sektion + Rating im Hero
     status: "open", // open | soon
     lat: 36.0229559, lng: -115.0465799,
     photoCount: 6, // Slider-Slots (Fotos folgen)
@@ -49,7 +50,7 @@ window.CS_LOCATIONS = [
   {
     id: "anthem",
     page: "studio-anthem.html",
-    name: "CS Fitness Anthem",
+    name: "CS FITNESS Anthem",
     shortName: "Anthem",
     address: "2540 Anthem Village Dr, Suite 180",
     city: "Henderson", state: "NV", zip: "89052",
@@ -61,8 +62,9 @@ window.CS_LOCATIONS = [
       ["Thu", "By appointment"], ["Fri", "By appointment"], ["Sat", "By appointment"],
       ["Sun", "Closed"]
     ],
-    rating: "5.0",
-    googleUrl: "https://www.google.com/maps",
+    rating: "",
+    googleUrl: "", // eigenes Google-Profil folgt
+    reviews: false, // ohne eigenes Profil: keine Bewertungs-Sektion, kein Rating im Hero
     status: "open",
     lat: 35.9798619, lng: -115.0985626,
     photoCount: 6,
